@@ -10,5 +10,7 @@
 2. npm install
 3. npm run gulp build
 
-# Alternativly upload files to wp-content/themes from prebuilt release
+## Alternativly upload files to wp-content/themes from prebuilt release
 [Release](https://github.com/IslayAnderson/govuk-gds_wordpress_theme/releases)
+
+[Example](https://blog.islayanderson.co.uk/)
