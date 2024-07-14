@@ -1,8 +1,9 @@
 # Release plan:
 0. fix errors left in by mistake 
-1. gds pattern Guttenburg blocks 
-2. enforcing gds pattern rules
-3. reinclude css build optimisations 
+1. implement theme customisations
+2. gds pattern Guttenburg blocks 
+3. enforcing gds pattern rules
+4. reinclude css build optimisations 
 
 # Build from source
 1. npm init
