@@ -10,3 +10,4 @@ node_modules/*
 /assets/js/*
 !/assets/js/main.js
 package-lock.json 
+.DS_store
