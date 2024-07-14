@@ -1,0 +1,12 @@
+node_modules/
+node_modules/*
+/assets/css/main.css
+/assets/fonts/
+/assets/fonts/*
+/assets/images/govuk-*
+/assets/images/favicon.ico
+/assets/images/favicon.svg
+/assets/manifest.json
+/assets/js/*
+!/assets/js/main.js
+package-lock.json 
