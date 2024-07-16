@@ -9,5 +9,7 @@ node_modules/*
 /assets/manifest.json
 /assets/js/*
 !/assets/js/main.js
+/vendor/
+composer.lock
 package-lock.json 
 .DS_store

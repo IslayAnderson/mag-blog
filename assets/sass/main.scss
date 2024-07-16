@@ -1,4 +1,5 @@
-@import "node_modules/govuk-frontend/dist/govuk/all";
+@import "../../node_modules/govuk-frontend/dist/govuk/all"; 
+//composer scss doesn't seem to be intelligent enough to traverse the file system properly so we manually point to it
 
 article .featured > img{
     width:100%;

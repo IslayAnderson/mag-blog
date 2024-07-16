@@ -139,31 +139,71 @@ function gdstheme_excerpt_more($more) {
 	return '...  <a class="excerpt-read-more" href="'. get_permalink( $post->ID ) . '" title="'. __( 'Read ', 'gdstheme' ) . esc_attr( get_the_title( $post->ID ) ).'">'. __( 'Read more &raquo;', 'gdstheme' ) .'</a>';
 }
 
+
+// build scss from wordpress 
+function gdstheme_wp_settings_scss_customiser(){
+
+}
+
+function gdstheme_wp_settings_scss_init(){
+	$compiler = new ScssPhp\ScssPhp\Compiler();
+	$compressor = new tubalmartin\CssMin\Minifier();
+	
+	$source_scss = get_template_directory() . '/assets/sass/main.scss';
+	$scssContents = file_get_contents($source_scss);
+	$import_path = get_template_directory() . '/assets/sass';
+	$compiler->addImportPath($import_path);
+	$target_css = get_template_directory() . '/assets/css/main.css';
+	$stylesheetRel = explode($_SERVER['SERVER_NAME'],get_template_directory_uri())[1] . '/assets/';
+	
+	$variables = [
+		'$govuk-assets-path' => $stylesheetRel
+	];		
+	$compiler->setVariables($variables);
+	
+	$css = $compiler->compile($scssContents);
+	if (!empty($css) && is_string($css)) {
+		file_put_contents($target_css, $css);
+	}
+	$minified_css = $compressor->run(file_get_contents($target_css)); 
+	if (!empty($minified_css) && is_string($minified_css)) {
+		file_put_contents($target_css, $minified_css);
+	}
+}
+
 function gdstheme_launch() {
 
-  // launching operation cleanup
-  add_action( 'init', 'gdstheme_head_cleanup' );
-  // A better title
-  add_filter( 'wp_title', 'rw_title', 10, 3 );
-  // remove WP version from RSS
-  add_filter( 'the_generator', 'gdstheme_rss_version' );
-  // remove injected css from comments widget
-  add_filter( 'wp_head', 'gdstheme_remove_wp_widget_recent_comments_style', 1 );
-  add_action( 'wp_head', 'gdstheme_remove_recent_comments_style', 1 );
+	// include composer 
+	add_action('init', function(){
+		include(get_template_directory(). '/vendor/autoload.php');
+	});
 
-  // enqueue base scripts and styles
-  add_action( 'wp_enqueue_scripts', 'gdstheme_scripts_and_styles', 999 );
+	// launching operation cleanup
+	add_action( 'init', 'gdstheme_head_cleanup' );
+	// A better title
+	add_filter( 'wp_title', 'rw_title', 10, 3 );
+	// remove WP version from RSS
+	add_filter( 'the_generator', 'gdstheme_rss_version' );
+	// remove injected css from comments widget
+	add_filter( 'wp_head', 'gdstheme_remove_wp_widget_recent_comments_style', 1 );
+	add_action( 'wp_head', 'gdstheme_remove_recent_comments_style', 1 );
 
-  // launching this stuff after theme setup
-  gdstheme_theme_support();
+	// enqueue base scripts and styles
+	add_action( 'wp_enqueue_scripts', 'gdstheme_scripts_and_styles', 999 );
 
-  // add sidebars
-  add_action( 'widgets_init', 'gdstheme_register_sidebars' );
+	// launching this stuff after theme setup
+	gdstheme_theme_support();
 
-  // remove p tags
-  add_filter( 'the_content', 'gdstheme_filter_ptags_on_images' );
-  // modfy excerpt
-  add_filter( 'excerpt_more', 'gdstheme_excerpt_more' );
+	// add sidebars
+	add_action( 'widgets_init', 'gdstheme_register_sidebars' );
+
+	// remove p tags
+	add_filter( 'the_content', 'gdstheme_filter_ptags_on_images' );
+	// modfy excerpt
+	add_filter( 'excerpt_more', 'gdstheme_excerpt_more' );
+
+	// add wordpress constants to scss
+	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_init');
 
 } 
 
@@ -259,4 +299,7 @@ function gdstheme_body_class($option){
 	}
 }
 
-/* DON'T DELETE THIS CLOSING TAG */ ?>
+
+
+
+?>
