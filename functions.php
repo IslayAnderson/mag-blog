@@ -145,7 +145,7 @@ function gdstheme_wp_settings_scss_customiser(){
 
 }
 
-function gdstheme_wp_settings_scss_init(){
+function gdstheme_wp_settings_scss_compile($args = null){
 	$compiler = new ScssPhp\ScssPhp\Compiler();
 	$compressor = new tubalmartin\CssMin\Minifier();
 	
@@ -158,7 +158,12 @@ function gdstheme_wp_settings_scss_init(){
 	
 	$variables = [
 		'$govuk-assets-path' => $stylesheetRel
-	];		
+	];
+
+	if(!is_null($args)){
+		$variables = array_merge($variables, $args);
+	}
+
 	$compiler->setVariables($variables);
 	
 	$css = $compiler->compile($scssContents);
@@ -203,7 +208,10 @@ function gdstheme_launch() {
 	add_filter( 'excerpt_more', 'gdstheme_excerpt_more' );
 
 	// add wordpress constants to scss
-	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_init');
+	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
+
+	// build customiser scss
+	add_action('customizer_save_after', 'gdstheme_wp_settings_scss_customiser');
 
 } 
 
