@@ -236,12 +236,12 @@ function gdstheme_theme_customizer($wp_customize) {
 		),
 		array(
 			'slug'=>'govuk-canvas-background-colour',
-			'default' => '#0b0c0c',
+			'default' => '#f3f2f1',
 			'label' => __('Canvas background colour', 'gds')
 		),
 		array(
 			'slug'=>'govuk-body-background-colour',
-			'default' => '#0b0c0c',
+			'default' => '#ffffff',
 			'label' => __('Body background colour', 'gds')
 		),
 		array(
@@ -251,12 +251,12 @@ function gdstheme_theme_customizer($wp_customize) {
 		),
 		array(
 			'slug'=>'govuk-secondary-text-colour',
-			'default' => '#0b0c0c',
+			'default' => '#505a5f',
 			'label' => __('Secondary text colour', 'gds')
 		),
 		array(
 			'slug'=>'govuk-focus-colour',
-			'default' => '#0b0c0c',
+			'default' => '#ffdd00',
 			'label' => __('Focus colour', 'gds')
 		),
 		array(
@@ -266,13 +266,48 @@ function gdstheme_theme_customizer($wp_customize) {
 		),
 		array(
 			'slug'=>'govuk-error-colour',
-			'default' => '#0b0c0c',
+			'default' => '#d4351c',
 			'label' => __('Error colour', 'gds')
 		),
 		array(
 			'slug'=>'govuk-success-colour',
-			'default' => '#0b0c0c',
+			'default' => '#00703c',
 			'label' => __('Success colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-border-colour',
+			'default' => '#b1b4b6',
+			'label' => __('Border colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-input-border-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Input border colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-hover-colour',
+			'default' => '#b1b4b6',
+			'label' => __('Hover colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-colour',
+			'default' => '#1d70b8',
+			'label' => __('Link colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-visited-colour',
+			'default' => '#4c2c92',
+			'label' => __('Link visited colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-hover-colour',
+			'default' => '#003078',
+			'label' => __('Link hover colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-active-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Link active colour', 'gds')
 		)
 	);
 	foreach( $colors as $color ) {
