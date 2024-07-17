@@ -294,30 +294,6 @@ function gdstheme_theme_customizer($wp_customize) {
 			)
 		);
 	}
-	  /*
-  	$wp_customize->add_setting('colors', array(
-		'title' => __( 'govuk-brand-colour' ),
-  		'description' => __( 'govuk-brand-colour' ),
-		'default' => '#f72525',
-		'sanitize_callback' => 'sanitize_hex_color',
-		'panel' => '', 
-		'priority' => 160,
-		'capability' => 'edit_theme_options',
-		'theme_supports' => '', 
-	));
-	*/
-	
-
-
-  // Uncomment the below lines to remove the default customize sections 
-  // $wp_customize->remove_section('title_tagline');
-  // $wp_customize->remove_section('colors');
-  // $wp_customize->remove_section('background_image');
-  // $wp_customize->remove_section('static_front_page');
-  // $wp_customize->remove_section('nav');
-
-  // Uncomment the below lines to remove the default controls
-  // $wp_customize->remove_control('blogdescription');
 }
 
 add_action( 'customize_register', 'gdstheme_theme_customizer' );
