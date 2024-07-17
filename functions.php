@@ -221,10 +221,95 @@ add_action( 'after_setup_theme', 'gdstheme_launch' );
 
 
 function gdstheme_theme_customizer($wp_customize) {
-  // $wp_customize calls go here.
-  //
-  // Uncomment the below lines to remove the default customize sections 
+	// $wp_customize calls go here.
+	// add sections
+	$colors = array( 
+		array(
+			'slug'=>'govuk-brand-colour',
+			'default' => '#1d70b8',
+			'label' => __('Brand colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-canvas-background-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Canvas background colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-body-background-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Body background colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-print-text-colour',
+			'default' => '#000000',
+			'label' => __('Print text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-secondary-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Secondary text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-focus-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Focus colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-focus-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Focus text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-error-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Error colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-success-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Success colour', 'gds')
+		)
+	);
+	foreach( $colors as $color ) {
+		$wp_customize->add_setting(
+			$color['slug'], array(
+			'default' => $color['default'],
+			'type' => 'option',
+			'capability' =>
+			'edit_theme_options'
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+			$wp_customize,
+			$color['slug'],
+			array('label' => $color['label'],
+			'section' => 'colors',
+			'settings' => $color['slug'])
+			)
+		);
+	}
+	  /*
+  	$wp_customize->add_setting('colors', array(
+		'title' => __( 'govuk-brand-colour' ),
+  		'description' => __( 'govuk-brand-colour' ),
+		'default' => '#f72525',
+		'sanitize_callback' => 'sanitize_hex_color',
+		'panel' => '', 
+		'priority' => 160,
+		'capability' => 'edit_theme_options',
+		'theme_supports' => '', 
+	));
+	*/
+	
 
+
+  // Uncomment the below lines to remove the default customize sections 
   // $wp_customize->remove_section('title_tagline');
   // $wp_customize->remove_section('colors');
   // $wp_customize->remove_section('background_image');
@@ -233,10 +318,6 @@ function gdstheme_theme_customizer($wp_customize) {
 
   // Uncomment the below lines to remove the default controls
   // $wp_customize->remove_control('blogdescription');
-  
-  // Uncomment the following to change the default section titles
-  // $wp_customize->get_section('colors')->title = __( 'Theme Colors' );
-  // $wp_customize->get_section('background_image')->title = __( 'Images' );
 }
 
 add_action( 'customize_register', 'gdstheme_theme_customizer' );
