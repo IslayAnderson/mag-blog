@@ -217,13 +217,13 @@ $books = array(
                                 <?php shuffle($books); foreach($books as $book){ ?>
                                 <a href="<?= $book['link'] ?>" target="_blank" title="<?= $book['title'] ?>">
                                     <div class="book" style="--height: <?= $book['height']?>;--width: <?= $book['width'] ?>;--depth: <?= $book['depth'] ?>;--hue: <?= $book['hue'] ?>;">
-                                        <div class="book__side" <? if(!empty($book['spine_img'])): ?> style="
+                                        <div class="book__side" <?php if(!empty($book['spine_img'])): ?> style="
                                             background:url(<?= $book['spine_img'] ?>); 
                                             background-size:cover;" <?php endif; ?> >
                                             <span><?= $book['spine_text'] ?></span>
                                         </div>
                                         <div class="book__side"></div>
-                                        <div class="book__side" <? if(!empty($book['cover_img'])): ?> style="
+                                        <div class="book__side" <?php if(!empty($book['cover_img'])): ?> style="
                                             background:url(<?= $book['cover_img'] ?>); 
                                             background-size:cover;" <?php endif; ?> >
                                             <span><?= $book['cover_text'] ?></span>
