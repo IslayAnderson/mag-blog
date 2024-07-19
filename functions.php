@@ -142,7 +142,13 @@ function gdstheme_excerpt_more($more) {
 
 // build scss from wordpress 
 function gdstheme_wp_settings_scss_customiser(){
+	$customise_options = [];
+	foreach( $GLOBALS['colors'] as $color ) {
+		$customise_options[$color['slug']] = get_theme_mod( $color['slug'], '' );
+	}
+	gdstheme_wp_settings_scss_compile($customise_options);
 
+	var_dump($customise_options);
 }
 
 function gdstheme_wp_settings_scss_compile($args = null){
@@ -162,6 +168,7 @@ function gdstheme_wp_settings_scss_compile($args = null){
 
 	if(!is_null($args)){
 		$variables = array_merge($variables, $args);
+		$target_css = get_template_directory() . '/assets/css/test.css';
 	}
 
 	$compiler->setVariables($variables);
@@ -175,6 +182,16 @@ function gdstheme_wp_settings_scss_compile($args = null){
 		file_put_contents($target_css, $minified_css);
 	}
 }
+
+/*
+function my_custom_css_output() {
+	echo '<style type="text/css" id="custom-theme-css">' .
+	get_theme_mod( 'custom_theme_css', '' ) . '</style>';
+	echo '<style type="text/css" id="custom-plugin-css">' .
+	get_option( 'custom_plugin_css', '' ) . '</style>';
+  }
+  add_action( 'wp_head', 'my_custom_css_output'); 
+  */
 
 function gdstheme_launch() {
 
@@ -211,7 +228,7 @@ function gdstheme_launch() {
 	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
 
 	// build customiser scss
-	add_action('customizer_save_after', 'gdstheme_wp_settings_scss_customiser');
+	add_action('customizer_save', 'gdstheme_wp_settings_scss_customiser');
 
 } 
 
@@ -223,7 +240,7 @@ add_action( 'after_setup_theme', 'gdstheme_launch' );
 function gdstheme_theme_customizer($wp_customize) {
 	// $wp_customize calls go here.
 	// add sections
-	$colors = array( 
+	$GLOBALS['colors'] = array( 
 		array(
 			'slug'=>'govuk-brand-colour',
 			'default' => '#1d70b8',
@@ -310,7 +327,7 @@ function gdstheme_theme_customizer($wp_customize) {
 			'label' => __('Link active colour', 'gds')
 		)
 	);
-	foreach( $colors as $color ) {
+	foreach( $GLOBALS['colors'] as $color ) {
 		$wp_customize->add_setting(
 			$color['slug'], array(
 			'default' => $color['default'],
