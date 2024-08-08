@@ -10,5 +10,6 @@ node_modules/*
 /assets/js/*
 !/assets/js/main.js
 /vendor
+composer.lock
 package-lock.json 
 .DS_store
