@@ -9,5 +9,6 @@ node_modules/*
 /assets/manifest.json
 /assets/js/*
 !/assets/js/main.js
+/vendor
 package-lock.json 
 .DS_store

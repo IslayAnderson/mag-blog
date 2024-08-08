@@ -65,6 +65,7 @@ function gdstheme_scripts_and_styles() {
 function gdstheme_theme_support() {
 	// rss
 	add_theme_support('automatic-feed-links');
+	add_theme_support('post-thumbnails');
 
 	// adding post format support
 	add_theme_support( 'post-formats',
@@ -77,7 +78,7 @@ function gdstheme_theme_support() {
 			'status',            // a Facebook like status update
 			'video',             // video
 			'audio',             // audio
-			'chat'               // chat transcript
+			'chat',               // chat transcript
 		)
 	);
 
