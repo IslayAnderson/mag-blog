@@ -67,6 +67,7 @@ function gdstheme_scripts_and_styles() {
 function gdstheme_theme_support() {
 	// rss
 	add_theme_support('automatic-feed-links');
+	add_theme_support('post-thumbnails');
 
 	// adding post format support
 	add_theme_support( 'post-formats',
@@ -79,7 +80,7 @@ function gdstheme_theme_support() {
 			'status',            // a Facebook like status update
 			'video',             // video
 			'audio',             // audio
-			'chat'               // chat transcript
+			'chat',               // chat transcript
 		)
 	);
 
@@ -143,6 +144,7 @@ function gdstheme_excerpt_more($more) {
 
 
 // build scss from wordpress 
+<<<<<<< HEAD
 function gdstheme_wp_settings_scss_customiser($wp_customize) {
 	$log = fopen(get_template_directory() . '/assets/css/customizer_changes.log', 'a');
 	$additional_css = fopen(get_template_directory() . '/assets/sass/colour.scss', 'w');
@@ -165,7 +167,16 @@ function gdstheme_wp_settings_scss_customiser($wp_customize) {
 	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved end \n");
 	fclose($additional_css);
 	fclose($log);
+=======
+function gdstheme_wp_settings_scss_customiser(){
+	$customise_options = [];
+	foreach( $GLOBALS['colors'] as $color ) {
+		$customise_options[$color['slug']] = get_theme_mod( $color['slug'], '' );
+	}
+	gdstheme_wp_settings_scss_compile($customise_options);
+>>>>>>> 3a2bdd3acb68138ffc7239ef15dbc84abaad4513
 
+	var_dump($customise_options);
 }
 
 function gdstheme_wp_settings_scss_compile($args = null){
@@ -185,6 +196,7 @@ function gdstheme_wp_settings_scss_compile($args = null){
 
 	if(!is_null($args)){
 		$variables = array_merge($variables, $args);
+		$target_css = get_template_directory() . '/assets/css/test.css';
 	}
 
 	$compiler->setVariables($variables);
@@ -198,6 +210,16 @@ function gdstheme_wp_settings_scss_compile($args = null){
 		file_put_contents($target_css, $minified_css);
 	}
 }
+
+/*
+function my_custom_css_output() {
+	echo '<style type="text/css" id="custom-theme-css">' .
+	get_theme_mod( 'custom_theme_css', '' ) . '</style>';
+	echo '<style type="text/css" id="custom-plugin-css">' .
+	get_option( 'custom_plugin_css', '' ) . '</style>';
+  }
+  add_action( 'wp_head', 'my_custom_css_output'); 
+  */
 
 function gdstheme_launch() {
 
@@ -234,7 +256,11 @@ function gdstheme_launch() {
 	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
 
 	// build customiser scss
+<<<<<<< HEAD
 	add_action('customize_save_after', 'gdstheme_wp_settings_scss_customiser');
+=======
+	add_action('customizer_save', 'gdstheme_wp_settings_scss_customiser');
+>>>>>>> 3a2bdd3acb68138ffc7239ef15dbc84abaad4513
 
 } 
 
@@ -246,7 +272,7 @@ add_action( 'after_setup_theme', 'gdstheme_launch' );
 function gdstheme_theme_customizer($wp_customize) {
 	// $wp_customize calls go here.
 	// add sections
-	$colors = array( 
+	$GLOBALS['colors'] = array( 
 		array(
 			'slug'=>'govuk-brand-colour',
 			'default' => '#1d70b8',
@@ -333,7 +359,7 @@ function gdstheme_theme_customizer($wp_customize) {
 			'label' => __('Link active colour', 'gds')
 		)
 	);
-	foreach( $colors as $color ) {
+	foreach( $GLOBALS['colors'] as $color ) {
 		$wp_customize->add_setting(
 			$color['slug'], array(
 			'default' => $color['default'],
