@@ -142,9 +142,6 @@ function gdstheme_excerpt_more($more) {
 	return '...  <a class="excerpt-read-more" href="'. get_permalink( $post->ID ) . '" title="'. __( 'Read ', 'gdstheme' ) . esc_attr( get_the_title( $post->ID ) ).'">'. __( 'Read more &raquo;', 'gdstheme' ) .'</a>';
 }
 
-
-// build scss from wordpress 
-<<<<<<< HEAD
 function gdstheme_wp_settings_scss_customiser($wp_customize) {
 	$log = fopen(get_template_directory() . '/assets/css/customizer_changes.log', 'a');
 	$additional_css = fopen(get_template_directory() . '/assets/sass/colour.scss', 'w');
@@ -167,16 +164,6 @@ function gdstheme_wp_settings_scss_customiser($wp_customize) {
 	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved end \n");
 	fclose($additional_css);
 	fclose($log);
-=======
-function gdstheme_wp_settings_scss_customiser(){
-	$customise_options = [];
-	foreach( $GLOBALS['colors'] as $color ) {
-		$customise_options[$color['slug']] = get_theme_mod( $color['slug'], '' );
-	}
-	gdstheme_wp_settings_scss_compile($customise_options);
->>>>>>> 3a2bdd3acb68138ffc7239ef15dbc84abaad4513
-
-	var_dump($customise_options);
 }
 
 function gdstheme_wp_settings_scss_compile($args = null){
@@ -256,11 +243,7 @@ function gdstheme_launch() {
 	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
 
 	// build customiser scss
-<<<<<<< HEAD
 	add_action('customize_save_after', 'gdstheme_wp_settings_scss_customiser');
-=======
-	add_action('customizer_save', 'gdstheme_wp_settings_scss_customiser');
->>>>>>> 3a2bdd3acb68138ffc7239ef15dbc84abaad4513
 
 } 
 
