@@ -55,9 +55,11 @@ function gdstheme_scripts_and_styles() {
 	if (!is_admin()) {
 		// register main stylesheet
 		wp_register_style( 'stylesheet', get_stylesheet_directory_uri() . '/assets/css/main.css', array(), '', 'all' );
+		wp_register_style( 'additional_stylesheet', get_stylesheet_directory_uri() . '/assets/css/additional.css', array(), '', 'all' );
 
 		// enqueue styles and scripts
 		wp_enqueue_style( 'stylesheet' );
+		wp_enqueue_style( 'additional_stylesheet' );
 	}
 }
 
@@ -65,6 +67,7 @@ function gdstheme_scripts_and_styles() {
 function gdstheme_theme_support() {
 	// rss
 	add_theme_support('automatic-feed-links');
+	add_theme_support('post-thumbnails');
 
 	// adding post format support
 	add_theme_support( 'post-formats',
@@ -77,7 +80,7 @@ function gdstheme_theme_support() {
 			'status',            // a Facebook like status update
 			'video',             // video
 			'audio',             // audio
-			'chat'               // chat transcript
+			'chat',               // chat transcript
 		)
 	);
 
@@ -139,31 +142,103 @@ function gdstheme_excerpt_more($more) {
 	return '...  <a class="excerpt-read-more" href="'. get_permalink( $post->ID ) . '" title="'. __( 'Read ', 'gdstheme' ) . esc_attr( get_the_title( $post->ID ) ).'">'. __( 'Read more &raquo;', 'gdstheme' ) .'</a>';
 }
 
+function gdstheme_wp_settings_scss_customiser($wp_customize) {
+	$log = fopen(get_template_directory() . '/assets/css/customizer_changes.log', 'a');
+	$additional_css = fopen(get_template_directory() . '/assets/sass/colour.scss', 'w');
+	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved start \n");
+	$colors = array( 'govuk-brand-colour', 'govuk-text-colour', 'govuk-canvas-background-colour', 'govuk-body-background-colour', 'govuk-print-text-colour', 'govuk-secondary-text-colour', 'govuk-focus-colour', 'govuk-focus-text-colour', 'govuk-error-colour', 'govuk-success-colour', 'govuk-border-colour', 'govuk-input-border-colour', 'govuk-hover-colour', 'govuk-link-colour', 'govuk-link-visited-colour', 'govuk-link-hover-colour', 'govuk-link-active-colour');
+	
+	 $out = '';
+	 foreach( $colors as $color) {
+
+		$control = $wp_customize->get_control($color);
+		$value = $control->value();
+		$out .= "$$color : $value ; \n";
+ 
+	 }
+
+	fwrite($additional_css, $out);
+	try{
+		gdstheme_wp_settings_scss_compile();
+	}
+	catch (Exception $e) {
+		fwrite($log, date('Y-m-d H:i:s.u') . " - 'Caught exception: " . $e->getMessage() . "\n");
+	}
+
+	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved end \n");
+	fclose($additional_css);
+	fclose($log);
+}
+
+function gdstheme_wp_settings_scss_compile($args = null){
+	$compiler = new ScssPhp\ScssPhp\Compiler();
+	$compressor = new tubalmartin\CssMin\Minifier();
+	
+	$source_scss = get_template_directory() . '/assets/sass/main.scss';
+	$scssContents = file_get_contents($source_scss);
+	$import_path = get_template_directory() . '/assets/sass';
+	$compiler->addImportPath($import_path);
+	$target_css = get_template_directory() . '/assets/css/main.css';
+	$stylesheetRel = explode($_SERVER['SERVER_NAME'],get_template_directory_uri())[1] . '/assets/';
+	
+	$variables = [
+		'$govuk-assets-path' => $stylesheetRel
+	];
+
+	if(!is_null($args)){
+		$variables = array_merge($variables, $args);
+		$target_css = get_template_directory() . '/assets/css/test.css';
+	}
+
+	$compiler->setVariables($variables);
+	
+	$css = $compiler->compile($scssContents);
+	if (!empty($css) && is_string($css)) {
+		file_put_contents($target_css, $css);
+	}
+
+	$minified_css = $compressor->run(file_get_contents($target_css)); 
+	if (!empty($minified_css) && is_string($minified_css)) {
+		file_put_contents($target_css, $minified_css);
+	}
+}
+
 function gdstheme_launch() {
 
-  // launching operation cleanup
-  add_action( 'init', 'gdstheme_head_cleanup' );
-  // A better title
-  add_filter( 'wp_title', 'rw_title', 10, 3 );
-  // remove WP version from RSS
-  add_filter( 'the_generator', 'gdstheme_rss_version' );
-  // remove injected css from comments widget
-  add_filter( 'wp_head', 'gdstheme_remove_wp_widget_recent_comments_style', 1 );
-  add_action( 'wp_head', 'gdstheme_remove_recent_comments_style', 1 );
+	// include composer 
+	add_action('init', function(){
+		include(get_template_directory(). '/vendor/autoload.php');
+	});
 
-  // enqueue base scripts and styles
-  add_action( 'wp_enqueue_scripts', 'gdstheme_scripts_and_styles', 999 );
+	// launching operation cleanup
+	add_action( 'init', 'gdstheme_head_cleanup' );
+	// A better title
+	add_filter( 'wp_title', 'rw_title', 10, 3 );
+	// remove WP version from RSS
+	add_filter( 'the_generator', 'gdstheme_rss_version' );
+	// remove injected css from comments widget
+	add_filter( 'wp_head', 'gdstheme_remove_wp_widget_recent_comments_style', 1 );
+	add_action( 'wp_head', 'gdstheme_remove_recent_comments_style', 1 );
 
-  // launching this stuff after theme setup
-  gdstheme_theme_support();
+	// enqueue base scripts and styles
+	add_action( 'wp_enqueue_scripts', 'gdstheme_scripts_and_styles', 999 );
 
-  // add sidebars
-  add_action( 'widgets_init', 'gdstheme_register_sidebars' );
+	// launching this stuff after theme setup
+	gdstheme_theme_support();
 
-  // remove p tags
-  add_filter( 'the_content', 'gdstheme_filter_ptags_on_images' );
-  // modfy excerpt
-  add_filter( 'excerpt_more', 'gdstheme_excerpt_more' );
+	// add sidebars
+	add_action( 'widgets_init', 'gdstheme_register_sidebars' );
+
+	// remove p tags
+	add_filter( 'the_content', 'gdstheme_filter_ptags_on_images' );
+	// modfy excerpt
+	add_filter( 'excerpt_more', 'gdstheme_excerpt_more' );
+
+	// add wordpress constants to scss
+	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
+
+	// build customiser scss
+	add_action('customize_save_after', 'gdstheme_wp_settings_scss_customiser');
 
 } 
 
@@ -173,22 +248,114 @@ add_action( 'after_setup_theme', 'gdstheme_launch' );
 
 
 function gdstheme_theme_customizer($wp_customize) {
-  // $wp_customize calls go here.
-  //
-  // Uncomment the below lines to remove the default customize sections 
-
-  // $wp_customize->remove_section('title_tagline');
-  // $wp_customize->remove_section('colors');
-  // $wp_customize->remove_section('background_image');
-  // $wp_customize->remove_section('static_front_page');
-  // $wp_customize->remove_section('nav');
-
-  // Uncomment the below lines to remove the default controls
-  // $wp_customize->remove_control('blogdescription');
-  
-  // Uncomment the following to change the default section titles
-  // $wp_customize->get_section('colors')->title = __( 'Theme Colors' );
-  // $wp_customize->get_section('background_image')->title = __( 'Images' );
+	// $wp_customize calls go here.
+	// add sections
+	$GLOBALS['colors'] = array( 
+		array(
+			'slug'=>'govuk-brand-colour',
+			'default' => '#1d70b8',
+			'label' => __('Brand colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-canvas-background-colour',
+			'default' => '#f3f2f1',
+			'label' => __('Canvas background colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-body-background-colour',
+			'default' => '#ffffff',
+			'label' => __('Body background colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-print-text-colour',
+			'default' => '#000000',
+			'label' => __('Print text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-secondary-text-colour',
+			'default' => '#505a5f',
+			'label' => __('Secondary text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-focus-colour',
+			'default' => '#ffdd00',
+			'label' => __('Focus colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-focus-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Focus text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-error-colour',
+			'default' => '#d4351c',
+			'label' => __('Error colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-success-colour',
+			'default' => '#00703c',
+			'label' => __('Success colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-border-colour',
+			'default' => '#b1b4b6',
+			'label' => __('Border colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-input-border-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Input border colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-hover-colour',
+			'default' => '#b1b4b6',
+			'label' => __('Hover colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-colour',
+			'default' => '#1d70b8',
+			'label' => __('Link colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-visited-colour',
+			'default' => '#4c2c92',
+			'label' => __('Link visited colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-hover-colour',
+			'default' => '#003078',
+			'label' => __('Link hover colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-active-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Link active colour', 'gds')
+		)
+	);
+	foreach( $GLOBALS['colors'] as $color ) {
+		$wp_customize->add_setting(
+			$color['slug'], array(
+			'default' => $color['default'],
+			'type' => 'option',
+			'capability' =>
+			'edit_theme_options'
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+			$wp_customize,
+			$color['slug'],
+			array('label' => $color['label'],
+			'section' => 'colors',
+			'settings' => $color['slug'])
+			)
+		);
+	}
 }
 
 add_action( 'customize_register', 'gdstheme_theme_customizer' );
@@ -259,4 +426,7 @@ function gdstheme_body_class($option){
 	}
 }
 
-/* DON'T DELETE THIS CLOSING TAG */ ?>
+
+
+
+?>

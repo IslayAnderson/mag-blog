@@ -1,0 +1,207 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0a450a24b9ed25caebe1c225a884ffe0",
+    "packages": [
+        {
+            "name": "natxet/cssmin",
+            "version": "v3.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/natxet/CssMin.git",
+                "reference": "d5d9f4c3e5cedb1ae96a95a21731f8790e38f1dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/natxet/CssMin/zipball/d5d9f4c3e5cedb1ae96a95a21731f8790e38f1dd",
+                "reference": "d5d9f4c3e5cedb1ae96a95a21731f8790e38f1dd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Scylla",
+                    "email": "joe.scylla@gmail.com",
+                    "homepage": "https://profiles.google.com/joe.scylla"
+                }
+            ],
+            "description": "Minifying CSS",
+            "homepage": "http://code.google.com/p/cssmin/",
+            "keywords": [
+                "css",
+                "minify"
+            ],
+            "support": {
+                "issues": "https://github.com/natxet/CssMin/issues",
+                "source": "https://github.com/natxet/CssMin/tree/master"
+            },
+            "time": "2018-01-09T11:15:01+00:00"
+        },
+        {
+            "name": "scssphp/scssphp",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scssphp/scssphp.git",
+                "reference": "63d1157457e5554edf00b0c1fabab4c1511d2520"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/63d1157457e5554edf00b0c1fabab4c1511d2520",
+                "reference": "63d1157457e5554edf00b0c1fabab4c1511d2520",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4",
+                "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.3 || ^9.4",
+                "sass/sass-spec": "*",
+                "squizlabs/php_codesniffer": "~3.5",
+                "symfony/phpunit-bridge": "^5.1",
+                "thoughtbot/bourbon": "^7.0",
+                "twbs/bootstrap": "~5.0",
+                "twbs/bootstrap4": "4.6.1",
+                "zurb/foundation": "~6.7.0"
+            },
+            "suggest": {
+                "ext-iconv": "Can be used as fallback when ext-mbstring is not available",
+                "ext-mbstring": "For best performance, mbstring should be installed as it is faster than ext-iconv"
+            },
+            "bin": [
+                "bin/pscss"
+            ],
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "forward-command": false,
+                    "bin-links": false
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ScssPhp\\ScssPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "homepage": "https://github.com/robocoder"
+                },
+                {
+                    "name": "Cédric Morin",
+                    "email": "cedric@yterium.com",
+                    "homepage": "https://github.com/Cerdic"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://scssphp.github.io/scssphp/",
+            "keywords": [
+                "css",
+                "less",
+                "sass",
+                "scss",
+                "stylesheet"
+            ],
+            "support": {
+                "issues": "https://github.com/scssphp/scssphp/issues",
+                "source": "https://github.com/scssphp/scssphp/tree/v1.13.0"
+            },
+            "time": "2024-08-17T21:02:11+00:00"
+        },
+        {
+            "name": "tubalmartin/cssmin",
+            "version": "v4.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port.git",
+                "reference": "3cbf557f4079d83a06f9c3ff9b957c022d7805cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tubalmartin/YUI-CSS-compressor-PHP-port/zipball/3cbf557f4079d83a06f9c3ff9b957c022d7805cf",
+                "reference": "3cbf557f4079d83a06f9c3ff9b957c022d7805cf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "cogpowered/finediff": "0.3.*",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "bin": [
+                "cssmin"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tubalmartin\\CssMin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Túbal Martín",
+                    "homepage": "http://tubalmartin.me/"
+                }
+            ],
+            "description": "A PHP port of the YUI CSS compressor",
+            "homepage": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port",
+            "keywords": [
+                "compress",
+                "compressor",
+                "css",
+                "cssmin",
+                "minify",
+                "yui"
+            ],
+            "support": {
+                "issues": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port/issues",
+                "source": "https://github.com/tubalmartin/YUI-CSS-compressor-PHP-port"
+            },
+            "time": "2018-01-15T15:26:51+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}
