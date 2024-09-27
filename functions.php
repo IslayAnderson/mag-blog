@@ -55,9 +55,11 @@ function gdstheme_scripts_and_styles() {
 	if (!is_admin()) {
 		// register main stylesheet
 		wp_register_style( 'stylesheet', get_stylesheet_directory_uri() . '/assets/css/main.css', array(), '', 'all' );
+		wp_register_style( 'additional_stylesheet', get_stylesheet_directory_uri() . '/assets/css/additional.css', array(), '', 'all' );
 
 		// enqueue styles and scripts
 		wp_enqueue_style( 'stylesheet' );
+		wp_enqueue_style( 'additional_stylesheet' );
 	}
 }
 
@@ -141,7 +143,28 @@ function gdstheme_excerpt_more($more) {
 
 
 // build scss from wordpress 
-function gdstheme_wp_settings_scss_customiser(){
+function gdstheme_wp_settings_scss_customiser($wp_customize) {
+	$log = fopen(get_template_directory() . '/assets/css/customizer_changes.log', 'a');
+	$additional_css = fopen(get_template_directory() . '/assets/sass/colour.scss', 'w');
+	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved start \n");
+	$colors = array( 'govuk-brand-colour', 'govuk-text-colour', 'govuk-canvas-background-colour', 'govuk-body-background-colour', 'govuk-print-text-colour', 'govuk-secondary-text-colour', 'govuk-focus-colour', 'govuk-focus-text-colour', 'govuk-error-colour', 'govuk-success-colour', 'govuk-border-colour', 'govuk-input-border-colour', 'govuk-hover-colour', 'govuk-link-colour', 'govuk-link-visited-colour', 'govuk-link-hover-colour', 'govuk-link-active-colour');
+	
+	 $out = '';
+	 foreach( $colors as $color) {
+
+		$control = $wp_customize->get_control($color);
+		$value = $control->value();
+		$out .= "$$color : $value ; \n";
+ 
+	 }
+
+	fwrite($additional_css, $out);
+
+	gdstheme_wp_settings_scss_compile();
+
+	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved end \n");
+	fclose($additional_css);
+	fclose($log);
 
 }
 
@@ -211,7 +234,7 @@ function gdstheme_launch() {
 	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
 
 	// build customiser scss
-	add_action('customizer_save_after', 'gdstheme_wp_settings_scss_customiser');
+	add_action('customize_save_after', 'gdstheme_wp_settings_scss_customiser');
 
 } 
 
