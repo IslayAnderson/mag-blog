@@ -145,7 +145,7 @@ function gdstheme_wp_settings_scss_customiser(){
 
 }
 
-function gdstheme_wp_settings_scss_init(){
+function gdstheme_wp_settings_scss_compile($args = null){
 	$compiler = new ScssPhp\ScssPhp\Compiler();
 	$compressor = new tubalmartin\CssMin\Minifier();
 	
@@ -158,7 +158,12 @@ function gdstheme_wp_settings_scss_init(){
 	
 	$variables = [
 		'$govuk-assets-path' => $stylesheetRel
-	];		
+	];
+
+	if(!is_null($args)){
+		$variables = array_merge($variables, $args);
+	}
+
 	$compiler->setVariables($variables);
 	
 	$css = $compiler->compile($scssContents);
@@ -203,7 +208,10 @@ function gdstheme_launch() {
 	add_filter( 'excerpt_more', 'gdstheme_excerpt_more' );
 
 	// add wordpress constants to scss
-	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_init');
+	add_action('after_setup_theme', 'gdstheme_wp_settings_scss_compile');
+
+	// build customiser scss
+	add_action('customizer_save_after', 'gdstheme_wp_settings_scss_customiser');
 
 } 
 
@@ -213,22 +221,114 @@ add_action( 'after_setup_theme', 'gdstheme_launch' );
 
 
 function gdstheme_theme_customizer($wp_customize) {
-  // $wp_customize calls go here.
-  //
-  // Uncomment the below lines to remove the default customize sections 
-
-  // $wp_customize->remove_section('title_tagline');
-  // $wp_customize->remove_section('colors');
-  // $wp_customize->remove_section('background_image');
-  // $wp_customize->remove_section('static_front_page');
-  // $wp_customize->remove_section('nav');
-
-  // Uncomment the below lines to remove the default controls
-  // $wp_customize->remove_control('blogdescription');
-  
-  // Uncomment the following to change the default section titles
-  // $wp_customize->get_section('colors')->title = __( 'Theme Colors' );
-  // $wp_customize->get_section('background_image')->title = __( 'Images' );
+	// $wp_customize calls go here.
+	// add sections
+	$colors = array( 
+		array(
+			'slug'=>'govuk-brand-colour',
+			'default' => '#1d70b8',
+			'label' => __('Brand colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-canvas-background-colour',
+			'default' => '#f3f2f1',
+			'label' => __('Canvas background colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-body-background-colour',
+			'default' => '#ffffff',
+			'label' => __('Body background colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-print-text-colour',
+			'default' => '#000000',
+			'label' => __('Print text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-secondary-text-colour',
+			'default' => '#505a5f',
+			'label' => __('Secondary text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-focus-colour',
+			'default' => '#ffdd00',
+			'label' => __('Focus colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-focus-text-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Focus text colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-error-colour',
+			'default' => '#d4351c',
+			'label' => __('Error colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-success-colour',
+			'default' => '#00703c',
+			'label' => __('Success colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-border-colour',
+			'default' => '#b1b4b6',
+			'label' => __('Border colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-input-border-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Input border colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-hover-colour',
+			'default' => '#b1b4b6',
+			'label' => __('Hover colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-colour',
+			'default' => '#1d70b8',
+			'label' => __('Link colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-visited-colour',
+			'default' => '#4c2c92',
+			'label' => __('Link visited colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-hover-colour',
+			'default' => '#003078',
+			'label' => __('Link hover colour', 'gds')
+		),
+		array(
+			'slug'=>'govuk-link-active-colour',
+			'default' => '#0b0c0c',
+			'label' => __('Link active colour', 'gds')
+		)
+	);
+	foreach( $colors as $color ) {
+		$wp_customize->add_setting(
+			$color['slug'], array(
+			'default' => $color['default'],
+			'type' => 'option',
+			'capability' =>
+			'edit_theme_options'
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+			$wp_customize,
+			$color['slug'],
+			array('label' => $color['label'],
+			'section' => 'colors',
+			'settings' => $color['slug'])
+			)
+		);
+	}
 }
 
 add_action( 'customize_register', 'gdstheme_theme_customizer' );
