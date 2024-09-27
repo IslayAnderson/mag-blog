@@ -198,16 +198,6 @@ function gdstheme_wp_settings_scss_compile($args = null){
 	}
 }
 
-/*
-function my_custom_css_output() {
-	echo '<style type="text/css" id="custom-theme-css">' .
-	get_theme_mod( 'custom_theme_css', '' ) . '</style>';
-	echo '<style type="text/css" id="custom-plugin-css">' .
-	get_option( 'custom_plugin_css', '' ) . '</style>';
-  }
-  add_action( 'wp_head', 'my_custom_css_output'); 
-  */
-
 function gdstheme_launch() {
 
 	// include composer 
