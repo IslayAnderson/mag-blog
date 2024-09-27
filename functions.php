@@ -158,8 +158,12 @@ function gdstheme_wp_settings_scss_customiser($wp_customize) {
 	 }
 
 	fwrite($additional_css, $out);
-
-	gdstheme_wp_settings_scss_compile();
+	try{
+		gdstheme_wp_settings_scss_compile();
+	}
+	catch (Exception $e) {
+		fwrite($log, date('Y-m-d H:i:s.u') . " - 'Caught exception: " . $e->getMessage() . "\n");
+	}
 
 	fwrite($log, date('Y-m-d H:i:s.u') . " - Customizer changes saved end \n");
 	fclose($additional_css);
@@ -192,6 +196,7 @@ function gdstheme_wp_settings_scss_compile($args = null){
 	if (!empty($css) && is_string($css)) {
 		file_put_contents($target_css, $css);
 	}
+
 	$minified_css = $compressor->run(file_get_contents($target_css)); 
 	if (!empty($minified_css) && is_string($minified_css)) {
 		file_put_contents($target_css, $minified_css);

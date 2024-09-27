@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 @import "../../assets/sass/colour.scss";
-@import "../../node_modules/govuk-frontend/dist/govuk/all"; 
-=======
 @import "../../node_modules/govuk-frontend/dist/govuk/all";
->>>>>>> 3a2bdd3acb68138ffc7239ef15dbc84abaad4513
 //composer scss doesn't seem to be intelligent enough to traverse the file system properly so we manually point to it
 
 article .featured > img {
