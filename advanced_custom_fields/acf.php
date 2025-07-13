@@ -10,7 +10,6 @@ function addNestedVariable(array &$tree, array $parts)
         }
         $current = &$current[$part];
     }
-//    $current['_leaf'] = true; // Mark leaf node
 }
 
 
@@ -64,6 +63,11 @@ function extractTwigVariablesNested(string $templatePath): array
 
 //END VIBE CODING
 
+function key_truncator($key)
+{
+    return str_split($key, 20)[0];
+}
+
 
 $layouts = array();
 $vars = array();
@@ -71,6 +75,7 @@ $vars = array();
 foreach (glob(__DIR__ . '/../assets/components/**/template.twig') as $filename) {
 
     $filename_split = explode('/', $filename);
+    $filename_key = $filename_split[count($filename_split) - 2];
     $sub_fields = [];
 
     try {
@@ -79,14 +84,14 @@ foreach (glob(__DIR__ . '/../assets/components/**/template.twig') as $filename) 
         echo 'Error: ' . $e->getMessage();
     }
 
-    $vars[$filename_split[count($filename_split)-2]] = $twigVars;
+    $vars[$filename_key] = $twigVars;
+
 
     foreach ($twigVars as $key => $twigVar) {
-//        var_dump($twigVar);
         $sub_fields[] = array(
-            'key' => $key,
-            'label' => 'Text',
-            'name' => 'text',
+            'key' => key_truncator("field_" . md5($key)),
+            'label' => preg_replace('/([A-Z])|(-)/', " $1", $key),
+            'name' => $key,
             'aria-label' => '',
             'type' => 'text',
             'instructions' => '',
@@ -106,34 +111,25 @@ foreach (glob(__DIR__ . '/../assets/components/**/template.twig') as $filename) 
         );
     }
 
-    $layouts[] = array(
-        $filename_split[count($filename_split)-2] => array(
-        'key' => $filename_split[count($filename_split)-2],
-        'name' => $filename_split[count($filename_split)-2],
-        'label' => $filename_split[count($filename_split)-2],
+    $layouts[key_truncator("layout_" . md5($filename_key))] = array(
+        'key' => key_truncator("layout_" . md5($filename_key)),
+        'name' => key_truncator($filename_key),
+        'label' => preg_replace('/([A-Z])|(-)/', " $1", $filename_key),
         'display' => 'block',
         'sub_fields' => $sub_fields,
         'min' => '',
-        'max' => '',
-    ),);
+        'max' => ''
+    );
 }
 
-//echo json_encode($vars);
 
-
-
-
-add_action( 'acf/include_fields', function($layouts) {
-    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
-        return;
-    }
-
-    acf_add_local_field_group( array(
-        'key' => 'page_builder',
-        'title' => 'Page Builder',
+$page_builder = array(
+    array(
+        'key' => key_truncator("group_" . md5('components')),
+        'title' => 'components',
         'fields' => array(
             array(
-                'key' => 'content',
+                'key' => key_truncator("field_" . md5('content')),
                 'label' => 'Content',
                 'name' => 'content',
                 'aria-label' => '',
@@ -146,7 +142,7 @@ add_action( 'acf/include_fields', function($layouts) {
                     'class' => '',
                     'id' => '',
                 ),
-                'layouts' => $layouts,
+                'layouts' => (array)$layouts,
                 'min' => '',
                 'max' => '',
                 'button_label' => 'Add Row',
@@ -170,7 +166,7 @@ add_action( 'acf/include_fields', function($layouts) {
         ),
         'menu_order' => 0,
         'position' => 'acf_after_title',
-        'style' => 'default',
+        'style' => 'seamless',
         'label_placement' => 'top',
         'instruction_placement' => 'label',
         'hide_on_screen' => array(
@@ -183,6 +179,26 @@ add_action( 'acf/include_fields', function($layouts) {
         'active' => true,
         'description' => '',
         'show_in_rest' => 0,
-    ) );
-} );
+    )
+);
+
+
+$style_checksum_generated = md5(json_encode($page_builder));
+
+if (!file_exists(__DIR__ . '/checksum')) {
+    $style_checksum = '';
+} else {
+    $style_checksum = file_get_contents(__DIR__ . '/checksum');
+}
+
+if ($style_checksum != $style_checksum_generated) {
+    file_put_contents(__DIR__ . '/checksum', $style_checksum_generated);
+    file_put_contents(__DIR__ . '/acf-fields.json', json_encode($page_builder));
+}
+
+
+add_filter('acf/settings/load_json', function () {
+    return __DIR__ . '/acf-fields.json';
+});
+
 
