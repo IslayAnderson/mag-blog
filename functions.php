@@ -430,20 +430,22 @@ function gdstheme_body_class($option){
 //check is acf is installed
 function acf_admin_notice($activate = 'install') {
     $class = 'notice notice-error';
-    $url = admin_url('plugin-install.php?tab=plugin-information&plugin=advanced-custom-fields&TB_iframe=true&width=772&height=1920');
+    $url = 'https://www.advancedcustomfields.com/';
     $message = __( $activate == 'install'?'Please install' : 'Please activate', 'sample-text-domain' );
 
-    printf( '<div class="%1$s"><p>%2$s <a href="%3$s">Advanced Custom Fields</a></p></div>', esc_attr( $class ), esc_html( $message ), $url );
+    printf( '<div class="%1$s"><p>%2$s <a href="%3$s">Advanced Custom Fields Pro</a></p></div>', esc_attr( $class ), esc_html( $message ), $url );
 }
 
-if (!in_array('advanced-custom-fields/acf.php',get_option('active_plugins')) && isset(get_plugins()['advanced-custom-fields/acf.php'])) {
+if (!in_array('advanced-custom-fields-pro/acf.php',get_option('active_plugins')) && isset(get_plugins()['advanced-custom-fields-pro/acf.php'])) {
     add_action('admin_notices', function(){
         acf_admin_notice('activate');
     });
-}elseif (!in_array('advanced-custom-fields/acf.php',get_option('active_plugins'))) {
+}elseif (!in_array('advanced-custom-fields-pro/acf.php',get_option('active_plugins'))) {
     add_action('admin_notices', function(){
         acf_admin_notice('install');
     });
+}else{
+    include __DIR__ . '/advanced_custom_fields/acf.php';
 }
 
 
