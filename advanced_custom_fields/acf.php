@@ -197,8 +197,14 @@ if ($style_checksum != $style_checksum_generated) {
 }
 
 
-add_filter('acf/settings/load_json', function () {
-    return __DIR__ . '/acf-fields.json';
+add_filter('acf/json/save_file_name', function () {
+    return 'acf-fields.json';
+}, 10, 3);
+
+add_filter('acf/settings/save_json', function () {
+    return get_stylesheet_directory() . '/advanced_custom_fields';
 });
 
-
+add_filter('acf/settings/load_json', function () {
+    return [get_stylesheet_directory() . '/advanced_custom_fields'];
+});

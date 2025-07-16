@@ -10,8 +10,11 @@ node_modules/*
 /assets/manifest.json
 /assets/js/*
 !/assets/js/main.js
+/advanced_custom_fields/acf-fields.json
+/advanced_custom_fields/checksum
 /vendor
 composer.lock
 package-lock.json 
 .DS_store
+.idea
 *.log
