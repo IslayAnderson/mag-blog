@@ -12,15 +12,74 @@ p {
 
 .big_abstract {
   position: absolute;
-  font-size: 30rem;
   font-weight: bold;
   font-family: "Courier New", Courier, monospace;
   color: $text-colour;
+
+  @media (max-width: $xxs) {
+    font-size: 4rem;
+    line-height: 2.5rem;
+  }
+
+  @media (min-width: $xxs) {
+    font-size: 4rem;
+    line-height: 2.5rem;
+  }
+
+  @media (min-width: $xs) {
+    font-size: 8rem;
+    line-height: 5rem;
+  }
+
+  @media (min-width: $sm) {
+    font-size: 15rem;
+    line-height: 10rem;
+  }
+
+  @media (min-width: $md) {
+    font-size: 20rem;
+    line-height: 15rem;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 25rem;
+    line-height: 17.5rem;
+  }
+
+  @media (min-width: $xl) {
+    font-size: 38rem;
+    line-height: 28rem;
+  }
 }
 
 .accent {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 23px;
   font-weight: 300;
   color: $accent-colour;
+  margin-top: 0;
+
+
+  @media (max-width: $xxs) {
+    font-size: 11px;
+  }
+
+  @media (min-width: $xxs) {
+    font-size: 11px;
+  }
+
+  @media (min-width: $xs) {
+    font-size: 11px;
+  }
+
+  @media (min-width: $md) {
+    font-size: 19px;
+  }
+
+  @media (min-width: $lg) {
+    font-size: 21px;
+  }
+
+  @media (min-width: $xl) {
+    font-size: 29px;
+  }
 }

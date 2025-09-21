@@ -1,11 +1,13 @@
 .feature {
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: 3vw;
+  left: 3vw;
   width: 33%;
 
   img {
     width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
   }
 
   h1 {
@@ -15,39 +17,281 @@
 
 .latest-blogs {
   position: absolute;
-  height: 5rem;
-  width: 85vh;
-  top: 41.5vh;
-  right: 0;
-  transform: rotate(90deg);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
+  top: 3vw;
+  height: 1px;
+  width: 1px;
 
-  a {
-    margin-right: 2rem;
-    text-decoration: none;
+  .inner {
+    transform-origin: top left;
+    transform: rotate(90deg);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
 
-    p {
-      font-size: 24px;
+    a {
+      margin-right: 3vw;
+      text-decoration: none;
+
+      p {
+        font-size: 1.2vw;
+      }
+    }
+  }
+
+
+  @media (max-width: $xs) {
+    left: calc(33% + 10rem);
+    .inner {
+      width: 350px;
+      height: 8rem;
+    }
+  }
+
+  @media (min-width: $xs) {
+    left: calc(33% + 12rem);
+    .inner {
+      width: 500px;
+      height: 8rem;
+    }
+  }
+
+  @media (min-width: $sm) {
+    left: calc(33% + 12rem);
+    .inner {
+      width: 800px;
+      height: 8rem;
+    }
+  }
+
+  @media (min-width: $md) {
+    left: calc(33% + 14rem);
+    .inner {
+      width: 1200px;
+      height: 8rem;
+    }
+  }
+
+  @media (min-width: $lg) {
+    left: calc(33% + 14rem);
+    .inner {
+      width: 1400px;
+      height: 8rem;
+    }
+  }
+
+  @media (min-width: $xl) {
+    left: calc(33% + 14rem);
+    .inner {
+      width: 1800px;
+      height: 8rem;
     }
   }
 }
 
 .d1 {
-  left: -20vw;
-  bottom: 16vh;
-  transform: rotate(-90deg);
+  left: 3vw;
+  bottom: 3vw;
+  width: 1px;
+  height: 1px;
+
+  span {
+    display: block;
+    transform-origin: top left;
+    transform: rotate(-90deg);
+  }
 }
 
 .d2 {
-  left: 18vw;
-  bottom: -5.5vh;
+  left: 20vw;
+  bottom: 0px;
+  width: 1px;
+  height: 1px;
+  display: flex;
+  align-items: flex-end;
+
+  span {
+    display: block;
+  }
+
+  @media (min-width: $xl) {
+    left: 30rem;
+  }
 }
 
 .d3 {
-  top: 10vh;
-  right: -12.5vw;
-  transform: rotate(90deg);
+  right: 3vw;
+  top: 3vw;
+  width: 1px;
+  height: 1px;
+
+  span {
+    display: block;
+    transform-origin: top left;
+    transform: rotate(90deg);
+  }
+}
+
+.menu {
+  position: absolute;
+  @media (max-width: $xs) {
+    top: 28%;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 16px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 155px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $xs) {
+    top: 38%;
+    left: 55%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 20px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 185px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $sm) {
+    top: 45%;
+    left: 58%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 24px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 300px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $md) {
+    top: 38%;
+    left: 60%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 30px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 300px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $lg) {
+    top: 40%;
+    left: 60%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 36px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 300px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $xl) {
+    top: 42%;
+    left: 56%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 42px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 345px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 2560px) {
+    top: 40%;
+    left: 65%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+
+    .menu-main-menu-container {
+
+      ul {
+        list-style: none;
+        font-size: 50px;
+        font-style: italic;
+
+        a {
+          display: block;
+          width: 355px;
+          color: $text-colour;
+        }
+      }
+    }
+  }
 }

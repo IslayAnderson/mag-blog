@@ -1,14 +1,59 @@
-.page {
-  position: relative;
-  aspect-ratio: 1/1.4142;
-  padding: 2rem;
+.spread {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: scroll;
 
-  &.p1 {
-    height: 100vh;
-    margin: 0 auto;
-  }
+  .page {
+    position: relative;
+    aspect-ratio: 1/1.4142;
+    padding: 0;
+    box-sizing: border-box;
+    //border: solid 1px black;
 
-  &.p2 {
-    width: 50%;
+    &.p1 {
+      width: 100vw;
+    }
+
+    &.p2 {
+      @media (orientation: portrait) {
+        width: 100vw;
+      }
+      @media (orientation: landscape) {
+        width: 50vw;
+        height: 100vh
+      }
+    }
+
+
+    @media (max-width: $xxs) {
+      margin: 0;
+    }
+
+    @media (min-width: $xxs) {
+      margin: 0;
+    }
+
+    @media (min-width: $xs) {
+      margin: 1rem;
+    }
+
+    @media (min-width: $sm) {
+      margin: 2rem;
+    }
+
+    @media (min-width: $md) {
+      margin: 2rem;
+    }
+
+    @media (min-width: $lg) {
+      margin: 2rem;
+    }
+
+    @media (min-width: $xl) {
+      margin: 2rem;
+    }
   }
 }
