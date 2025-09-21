@@ -1,6 +1,6 @@
 node_modules/
 node_modules/*
-/assets/css/main.css
+#/assets/css/main.css
 /assets/fonts/
 /assets/fonts/*
 #/assets/components
