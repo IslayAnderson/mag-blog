@@ -3,14 +3,14 @@ node_modules/*
 /assets/css/main.css
 /assets/fonts/
 /assets/fonts/*
-/assets/components
+#/assets/components
 /assets/macros
 /assets/images
 /assets/rebrand
 /assets/manifest.json
 /assets/js/*
 !/assets/js/main.js
-/advanced_custom_fields/acf-fields.json
+#/advanced_custom_fields/acf-fields.json
 /advanced_custom_fields/checksum
 /vendor
 composer.lock

@@ -1,0 +1,26 @@
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: $text-colour;
+  background: $background-colour;
+}
+
+p {
+  font-size: 1.8rem;
+  color: $text-colour;
+}
+
+.big_abstract {
+  position: absolute;
+  font-size: 30rem;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+  color: $text-colour;
+}
+
+.accent {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 23px;
+  font-weight: 300;
+  color: $accent-colour;
+}

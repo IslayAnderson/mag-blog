@@ -1,0 +1,53 @@
+.feature {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  width: 33%;
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    text-align: justify;
+  }
+}
+
+.latest-blogs {
+  position: absolute;
+  height: 5rem;
+  width: 85vh;
+  top: 41.5vh;
+  right: 0;
+  transform: rotate(90deg);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+
+  a {
+    margin-right: 2rem;
+    text-decoration: none;
+
+    p {
+      font-size: 24px;
+    }
+  }
+}
+
+.d1 {
+  left: -20vw;
+  bottom: 16vh;
+  transform: rotate(-90deg);
+}
+
+.d2 {
+  left: 18vw;
+  bottom: -5.5vh;
+}
+
+.d3 {
+  top: 10vh;
+  right: -12.5vw;
+  transform: rotate(90deg);
+}

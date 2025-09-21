@@ -1,5 +1,5 @@
 {
-  "name": "gds_blog",
+  "name": "mag_blog",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "govuk-frontend": "^5.4.0",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
     "gulp-purgecss": "^6.0.0",

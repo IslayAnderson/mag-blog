@@ -1,0 +1,14 @@
+.page {
+  position: relative;
+  aspect-ratio: 1/1.4142;
+  padding: 2rem;
+
+  &.p1 {
+    height: 100vh;
+    margin: 0 auto;
+  }
+
+  &.p2 {
+    width: 50%;
+  }
+}

@@ -1,7 +1,7 @@
 /******************************************************************
-Theme Name: UKGOV GDS Blog
+Theme Name: Mag Blog
 Theme URI: https://islayanderson.co.uk
-Description: I LOVE GDS
+Description: Magazine style theme
 Author: Islay Anderson
 Author URI: https://islayanderson.co.uk
 
@@ -9,6 +9,11 @@ License: WTFPL
 License URI: http://sam.zoy.org/wtfpl/
 */
 
-.sticky {}          
-.gallery-caption {} 
-.bypostauthor {}    
+.sticky {
+}
+
+.gallery-caption {
+}
+
+.bypostauthor {
+}
