@@ -4,7 +4,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  overflow-x: scroll;
 
   .page {
     position: relative;
@@ -12,6 +11,10 @@
     padding: 0;
     box-sizing: border-box;
     //border: solid 1px black;
+
+    &.blogs {
+      aspect-ratio: 1/0.4;
+    }
 
     &.p1 {
       width: 100vw;

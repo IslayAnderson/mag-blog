@@ -115,7 +115,7 @@ function mag_blog_theme_filter_ptags_on_images($content)
 function mag_blog_theme_excerpt_more($more)
 {
     global $post;
-    return '...  <a class="excerpt-read-more" href="' . get_permalink($post->ID) . '" title="' . __('Read ', 'mag_blog_theme') . esc_attr(get_the_title($post->ID)) . '">' . __('Read more &raquo;', 'mag_blog_theme') . '</a>';
+    return '...';
 }
 
 function mag_blog_theme_wp_settings_scss_compile($args = null)
