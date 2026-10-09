@@ -6,7 +6,7 @@
                 <article id="post-<?php the_ID(); ?>" <?php post_class('cf'); ?> role="article">
                     <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
                         <div class="title">
-                            <h2 class="big_abstract"><?= substr(get_the_title(), 0, 45) ?><?= strlen(get_the_title()) > 45 ? '...' : '' ?></h2>
+                            <h2 class="big_abstract"><?php the_title(); ?></h2>
                             <div class="featured">
                                 <?php the_post_thumbnail('large'); ?>
                             </div>

@@ -410,8 +410,11 @@ p {
   padding: 0 5px 5px;
 }
 .spread .page.archive-item .post a .featured img {
+  display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 3/2;
+  object-fit: cover;
 }
 .spread .page.archive-item .post a .excerpt {
   grid-area: excerpt;

@@ -145,8 +145,11 @@
       padding: 0 5px 5px;
 
       img {
+        display: block;
         width: 100%;
         height: auto;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
       }
     }
 
