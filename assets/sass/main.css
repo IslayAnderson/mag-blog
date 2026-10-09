@@ -444,43 +444,59 @@ p {
   aspect-ratio: unset;
 }
 .spread .page.archive-item .post a {
-  display: flex;
+  display: grid;
+  grid-template-columns: 39% 60%;
+  grid-template-areas: "heading ." "featured excerpt";
+  justify-content: space-between;
+  align-items: start;
   width: 100%;
   text-decoration: none;
 }
-.spread .page.archive-item .post a .title,
-.spread .page.archive-item .post a .excerpt {
-  position: relative;
-  height: auto;
-  padding: 5px;
-}
 .spread .page.archive-item .post a .title {
-  width: 39%;
-  display: block;
+  display: contents;
 }
 .spread .page.archive-item .post a .title .big_abstract {
+  grid-area: heading;
   position: relative;
   height: auto;
   display: block;
   line-height: 100%;
   font-size: 4rem;
   margin: 0 0 10px 0;
+  padding: 5px 5px 0;
   word-wrap: break-word;
 }
-.spread .page.archive-item .post a .excerpt {
-  width: 60%;
+.spread .page.archive-item .post a .featured {
+  grid-area: featured;
+  padding: 0 5px 5px;
 }
 .spread .page.archive-item .post a .featured img {
   width: 100%;
   height: auto;
 }
+.spread .page.archive-item .post a .excerpt {
+  grid-area: excerpt;
+  position: relative;
+  width: auto;
+  height: auto;
+  padding: 0 15px 15px;
+}
+.spread .page.archive-item .post a .excerpt p:first-child {
+  margin-top: 0;
+}
+.spread .page.archive-item:nth-of-type(4n+3) .post a, .spread .page.archive-item:nth-of-type(4n) .post a {
+  grid-template-columns: 60% 39%;
+  grid-template-areas: ". heading" "excerpt featured";
+}
 @media (max-width: 768px) {
+  .spread .page.archive-item:nth-of-type(4n+3) .post a, .spread .page.archive-item:nth-of-type(4n) .post a,
   .spread .page.archive-item .post a {
-    flex-direction: column;
+    grid-template-columns: 100%;
+    grid-template-areas: "heading" "featured" "excerpt";
   }
-  .spread .page.archive-item .post a .title,
+  .spread .page.archive-item:nth-of-type(4n+3) .post a .excerpt, .spread .page.archive-item:nth-of-type(4n) .post a .excerpt,
   .spread .page.archive-item .post a .excerpt {
-    width: 100%;
+    padding-top: 15px;
   }
 }
 
