@@ -95,6 +95,29 @@
   width: 1px;
   height: 1px;
 
+  // cap the size relative to the viewport so CODE never runs up into the menu under the feature image
+  font-size: min(4rem, 16vw);
+
+  @media (min-width: $xs) {
+    font-size: min(8rem, 16vw);
+  }
+
+  @media (min-width: $sm) {
+    font-size: min(15rem, 22vw);
+  }
+
+  @media (min-width: $md) {
+    font-size: min(20rem, 22vw);
+  }
+
+  @media (min-width: $lg) {
+    font-size: min(25rem, 22vw);
+  }
+
+  @media (min-width: $xl) {
+    font-size: min(38rem, 22vw);
+  }
+
   span {
     display: block;
     transform-origin: top left;
@@ -132,166 +155,57 @@
   }
 }
 
+// sits inside .feature, directly under the image and caption, left edges aligned
 .menu {
-  position: absolute;
-  @media (max-width: $xs) {
-    top: 28%;
-    left: 0%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
+  position: relative;
+  z-index: 10;
 
-    .menu-main-menu-container {
+  .menu-main-menu-container {
 
-      ul {
-        list-style: none;
-        font-size: 16px;
-        font-style: italic;
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-style: italic;
 
-        a {
-          display: block;
-          width: 155px;
-          color: $text-colour;
-        }
+      a {
+        display: block;
+        color: $text-colour;
       }
     }
+  }
+
+  @mixin menu-size($font-size) {
+    .menu-main-menu-container ul {
+      font-size: $font-size;
+    }
+  }
+
+  @media (max-width: $xs) {
+    @include menu-size(16px);
   }
 
   @media (min-width: $xs) {
-    top: 38%;
-    left: 55%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-
-    .menu-main-menu-container {
-
-      ul {
-        list-style: none;
-        font-size: 20px;
-        font-style: italic;
-
-        a {
-          display: block;
-          width: 185px;
-          color: $text-colour;
-        }
-      }
-    }
+    @include menu-size(20px);
   }
 
   @media (min-width: $sm) {
-    top: 45%;
-    left: 58%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-
-    .menu-main-menu-container {
-
-      ul {
-        list-style: none;
-        font-size: 24px;
-        font-style: italic;
-
-        a {
-          display: block;
-          width: 300px;
-          color: $text-colour;
-        }
-      }
-    }
+    @include menu-size(24px);
   }
 
   @media (min-width: $md) {
-    top: 38%;
-    left: 60%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-
-    .menu-main-menu-container {
-
-      ul {
-        list-style: none;
-        font-size: 30px;
-        font-style: italic;
-
-        a {
-          display: block;
-          width: 300px;
-          color: $text-colour;
-        }
-      }
-    }
+    @include menu-size(30px);
   }
 
   @media (min-width: $lg) {
-    top: 40%;
-    left: 60%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-
-    .menu-main-menu-container {
-
-      ul {
-        list-style: none;
-        font-size: 36px;
-        font-style: italic;
-
-        a {
-          display: block;
-          width: 300px;
-          color: $text-colour;
-        }
-      }
-    }
+    @include menu-size(36px);
   }
 
   @media (min-width: $xl) {
-    top: 42%;
-    left: 56%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-
-    .menu-main-menu-container {
-
-      ul {
-        list-style: none;
-        font-size: 42px;
-        font-style: italic;
-
-        a {
-          display: block;
-          width: 345px;
-          color: $text-colour;
-        }
-      }
-    }
+    @include menu-size(42px);
   }
 
   @media (min-width: 2560px) {
-    top: 40%;
-    left: 65%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-
-    .menu-main-menu-container {
-
-      ul {
-        list-style: none;
-        font-size: 50px;
-        font-style: italic;
-
-        a {
-          display: block;
-          width: 355px;
-          color: $text-colour;
-        }
-      }
-    }
+    @include menu-size(50px);
   }
 }

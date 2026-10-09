@@ -8,6 +8,13 @@ get_header(); ?>
         <div class="feature">
             <?= get_the_post_thumbnail(); ?>
             <h1 class="accent"><?= get_the_title() ?></h1>
+            <div class="menu">
+                <?php
+                wp_nav_menu(array(
+                    'menu' => 'main-nav',
+                ));
+                ?>
+            </div>
         </div>
         <div class="latest-blogs">
             <?php
@@ -25,13 +32,6 @@ get_header(); ?>
                     </a>
                 <?php endfor; ?>
             </div>
-        </div>
-        <div class="menu">
-            <?php
-            wp_nav_menu(array(
-                'menu' => 'main-nav',
-            ));
-            ?>
         </div>
         <div class="decoration_text d1 big_abstract">
             <span>CODE</span>

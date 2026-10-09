@@ -200,6 +200,32 @@ p {
   bottom: 3vw;
   width: 1px;
   height: 1px;
+  font-size: min(4rem, 16vw);
+}
+@media (min-width: 480px) {
+  .d1 {
+    font-size: min(8rem, 16vw);
+  }
+}
+@media (min-width: 768px) {
+  .d1 {
+    font-size: min(15rem, 22vw);
+  }
+}
+@media (min-width: 1280px) {
+  .d1 {
+    font-size: min(20rem, 22vw);
+  }
+}
+@media (min-width: 1440px) {
+  .d1 {
+    font-size: min(25rem, 22vw);
+  }
+}
+@media (min-width: 1920px) {
+  .d1 {
+    font-size: min(38rem, 22vw);
+  }
 }
 .d1 span {
   display: block;
@@ -237,139 +263,52 @@ p {
 }
 
 .menu {
-  position: absolute;
+  position: relative;
+  z-index: 10;
+}
+.menu .menu-main-menu-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-style: italic;
+}
+.menu .menu-main-menu-container ul a {
+  display: block;
+  color: #333333;
 }
 @media (max-width: 480px) {
-  .menu {
-    top: 28%;
-    left: 0%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 16px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 155px;
-    color: #333333;
   }
 }
 @media (min-width: 480px) {
-  .menu {
-    top: 38%;
-    left: 55%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 20px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 185px;
-    color: #333333;
   }
 }
 @media (min-width: 768px) {
-  .menu {
-    top: 45%;
-    left: 58%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 24px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 300px;
-    color: #333333;
   }
 }
 @media (min-width: 1280px) {
-  .menu {
-    top: 38%;
-    left: 60%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 30px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 300px;
-    color: #333333;
   }
 }
 @media (min-width: 1440px) {
-  .menu {
-    top: 40%;
-    left: 60%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 36px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 300px;
-    color: #333333;
   }
 }
 @media (min-width: 1920px) {
-  .menu {
-    top: 42%;
-    left: 56%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 42px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 345px;
-    color: #333333;
   }
 }
 @media (min-width: 2560px) {
-  .menu {
-    top: 40%;
-    left: 65%;
-    width: 1px;
-    height: 1px;
-    z-index: 10;
-  }
   .menu .menu-main-menu-container ul {
-    list-style: none;
     font-size: 50px;
-    font-style: italic;
-  }
-  .menu .menu-main-menu-container ul a {
-    display: block;
-    width: 355px;
-    color: #333333;
   }
 }
 
