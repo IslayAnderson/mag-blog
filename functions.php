@@ -62,7 +62,9 @@ function mag_blog_theme_scripts_and_styles()
     global $wp_styles; // call global $wp_styles variable to add conditional wrapper around ie stylesheet the WordPress way
     if (!is_admin()) {
         // register main stylesheet
-        wp_register_style('stylesheet', get_stylesheet_directory_uri() . '/assets/sass/main.css', array(), null);
+        // version by file modified time so browsers and cloudflare pick up new css after each build
+        $stylesheet_version = filemtime(get_stylesheet_directory() . '/assets/sass/main.css');
+        wp_register_style('stylesheet', get_stylesheet_directory_uri() . '/assets/sass/main.css', array(), $stylesheet_version);
 
         // enqueue styles and scripts
         wp_enqueue_style('stylesheet');
