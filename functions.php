@@ -118,6 +118,22 @@ function mag_blog_theme_excerpt_more($more)
     return '...';
 }
 
+// numeric pagination for archive/search listings
+function mag_blog_theme_page_navi()
+{
+    the_posts_pagination(array(
+        'mid_size' => 2,
+        'prev_text' => '&larr;',
+        'next_text' => '&rarr;',
+    ));
+}
+
+// simple not-found message for empty listings
+function mag_blog_theme_error($message)
+{
+    printf('<p class="error">%s</p>', esc_html__($message, 'mag_blog_theme'));
+}
+
 function mag_blog_theme_wp_settings_scss_compile($args = null)
 {
     $compiler = new ScssPhp\ScssPhp\Compiler();
