@@ -118,6 +118,18 @@ function mag_blog_theme_excerpt_more($more)
     return '...';
 }
 
+// longer excerpt than the default 55 words
+function mag_blog_theme_excerpt_length($length)
+{
+    return 200;
+}
+
+// ignore hand written excerpts so wp_trim_excerpt always builds one from the content
+function mag_blog_theme_ignore_manual_excerpt($excerpt)
+{
+    return '';
+}
+
 // numeric pagination for archive/search listings
 function mag_blog_theme_page_navi()
 {
@@ -196,6 +208,8 @@ function mag_blog_theme_launch()
     add_filter('the_content', 'mag_blog_theme_filter_ptags_on_images');
     // modfy excerpt
     add_filter('excerpt_more', 'mag_blog_theme_excerpt_more');
+    add_filter('excerpt_length', 'mag_blog_theme_excerpt_length');
+    add_filter('get_the_excerpt', 'mag_blog_theme_ignore_manual_excerpt', 5);
 
     // add wordpress constants to scss
 //    add_action('after_setup_theme', 'mag_blog_theme_wp_settings_scss_compile');

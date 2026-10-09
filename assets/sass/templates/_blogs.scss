@@ -107,48 +107,54 @@
   padding: 5vw;
 }
 
-// archive.php: title with featured image underneath on the left, excerpt fills the right
+// archive.php / index.php: title with featured image underneath on the left, excerpt fills the right
 .spread .page.archive-item {
-  aspect-ratio: auto;
+  aspect-ratio: unset;
 
   .post a {
-    display: grid;
-    grid-template-columns: 39% 1fr;
-    column-gap: 1%;
-    align-items: start;
+    display: flex;
+    width: 100%;
     text-decoration: none;
 
     .title,
     .excerpt {
       position: relative;
-      width: 100%;
       height: auto;
+      padding: 5px;
     }
 
-    .title .big_abstract {
-      position: relative;
-      height: auto;
-    }
+    .title {
+      width: 39%;
+      display: block;
 
-    .featured {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      .big_abstract {
+        position: relative;
+        height: auto;
+        display: block;
+        line-height: 100%;
+        font-size: 4rem;
+        margin: 0 0 10px 0;
+        word-wrap: break-word;
       }
+    }
+
+    .excerpt {
+      width: 60%;
+    }
+
+    .featured img {
+      width: 100%;
+      height: auto;
     }
   }
 
   @media (max-width: $sm) {
     .post a {
-      display: flex;
       flex-direction: column;
 
-      .title {
-        display: block;
+      .title,
+      .excerpt {
+        width: 100%;
       }
     }
   }
