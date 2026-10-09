@@ -440,6 +440,45 @@ p {
   padding: 5vw;
 }
 
+.spread .page.archive-item {
+  aspect-ratio: auto;
+}
+.spread .page.archive-item .post a {
+  display: grid;
+  grid-template-columns: 39% 1fr;
+  column-gap: 1%;
+  align-items: start;
+  text-decoration: none;
+}
+.spread .page.archive-item .post a .title,
+.spread .page.archive-item .post a .excerpt {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.spread .page.archive-item .post a .title .big_abstract {
+  position: relative;
+  height: auto;
+}
+.spread .page.archive-item .post a .featured {
+  width: 100%;
+  aspect-ratio: 3/2;
+}
+.spread .page.archive-item .post a .featured img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .spread .page.archive-item .post a {
+    display: flex;
+    flex-direction: column;
+  }
+  .spread .page.archive-item .post a .title {
+    display: block;
+  }
+}
+
 .spread {
   display: flex;
   flex-direction: row;

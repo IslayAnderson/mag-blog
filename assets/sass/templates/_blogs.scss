@@ -106,3 +106,50 @@
 .basic {
   padding: 5vw;
 }
+
+// archive.php: title with featured image underneath on the left, excerpt fills the right
+.spread .page.archive-item {
+  aspect-ratio: auto;
+
+  .post a {
+    display: grid;
+    grid-template-columns: 39% 1fr;
+    column-gap: 1%;
+    align-items: start;
+    text-decoration: none;
+
+    .title,
+    .excerpt {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+
+    .title .big_abstract {
+      position: relative;
+      height: auto;
+    }
+
+    .featured {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  @media (max-width: $sm) {
+    .post a {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        display: block;
+      }
+    }
+  }
+}
