@@ -123,7 +123,7 @@ function mag_blog_theme_excerpt_more($more)
 // longer excerpt than the default 55 words
 function mag_blog_theme_excerpt_length($length)
 {
-    return 200;
+    return 170;
 }
 
 // ignore hand written excerpts so wp_trim_excerpt always builds one from the content
