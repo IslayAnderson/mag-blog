@@ -127,7 +127,7 @@ function mag_blog_theme_wp_settings_scss_compile($args = null)
     $scssContents = file_get_contents($source_scss);
     $import_path = get_template_directory() . '/assets/sass';
     $compiler->addImportPath($import_path);
-    $target_css = get_template_directory() . '/assets/css/main.css';
+    $target_css = get_template_directory() . '/assets/sass/main.css';
     $stylesheetRel = explode($_SERVER['SERVER_NAME'], get_template_directory_uri())[1] . '/assets/';
 
     $variables = [
