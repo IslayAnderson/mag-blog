@@ -62,7 +62,7 @@ function mag_blog_theme_scripts_and_styles()
     global $wp_styles; // call global $wp_styles variable to add conditional wrapper around ie stylesheet the WordPress way
     if (!is_admin()) {
         // register main stylesheet
-        wp_register_style('stylesheet', get_stylesheet_directory_uri() . '/assets/sass/main.css', array(), '', 'all');
+        wp_register_style('stylesheet', get_stylesheet_directory_uri() . '/assets/sass/main.css', array(), null);
 
         // enqueue styles and scripts
         wp_enqueue_style('stylesheet');
