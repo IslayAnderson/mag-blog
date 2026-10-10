@@ -423,12 +423,19 @@ p {
   height: auto;
   padding: 0 15px 15px;
 }
-.spread .page.archive-item .post a .excerpt p:first-child {
+.spread .page.archive-item .post a .excerpt .date {
+  color: #333;
+  text-decoration: line-through;
+}
+.spread .page.archive-item .post a .excerpt p {
   margin-top: 0;
 }
 .spread .page.archive-item:nth-of-type(4n+3) .post a, .spread .page.archive-item:nth-of-type(4n) .post a {
   grid-template-columns: 60% 39%;
   grid-template-areas: ". heading" "excerpt featured";
+}
+.spread .page.archive-item:nth-of-type(4n+3) .post a .excerpt, .spread .page.archive-item:nth-of-type(4n) .post a .excerpt {
+  text-align: right;
 }
 @media (max-width: 768px) {
   .spread .page.archive-item:nth-of-type(4n+3) .post a, .spread .page.archive-item:nth-of-type(4n) .post a,
@@ -439,6 +446,7 @@ p {
   .spread .page.archive-item:nth-of-type(4n+3) .post a .excerpt, .spread .page.archive-item:nth-of-type(4n) .post a .excerpt,
   .spread .page.archive-item .post a .excerpt {
     padding-top: 15px;
+    text-align: left;
   }
 }
 

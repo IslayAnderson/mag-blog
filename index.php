@@ -12,6 +12,7 @@
                             </div>
                         </div>
                         <div class="excerpt">
+                            <span class="date"><?= get_the_date() ?></span><br>
                             <?php the_excerpt(); ?>
                         </div>
                     </a>

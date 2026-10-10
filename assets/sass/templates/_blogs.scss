@@ -160,7 +160,13 @@
       height: auto;
       padding: 0 15px 15px;
 
-      p:first-child {
+      .date {
+        color: #333;
+        text-decoration: line-through;
+      }
+
+      // date sits on the first line, level with the top of the image
+      p {
         margin-top: 0;
       }
     }
@@ -173,6 +179,10 @@
     grid-template-areas:
       ". heading"
       "excerpt featured";
+
+    .excerpt {
+      text-align: right;
+    }
   }
 
   @media (max-width: $sm) {
@@ -187,6 +197,7 @@
 
       .excerpt {
         padding-top: 15px;
+        text-align: left;
       }
     }
   }
