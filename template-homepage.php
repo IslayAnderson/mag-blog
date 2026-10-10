@@ -30,6 +30,11 @@ get_header(); ?>
                     <a href="<?= get_permalink($posts[$i]->ID) ?>">
                         <p><?= implode(' ', array_slice(explode(' ', strip_tags($posts[$i]->post_content)), 0, 30)) ?></p>
                     </a>
+                    <?php if ($i == 0): ?>
+                        <a href="<?= get_permalink($posts[$i]->ID) ?>" class="thumbnail">
+                            <?php print_r(get_the_post_thumbnail($posts[$i]->ID, 'large')) ?>
+                        </a>
+                    <?php endif; ?>
                 <?php endfor; ?>
             </div>
         </div>
