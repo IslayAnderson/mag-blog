@@ -48,27 +48,38 @@ get_header(); ?>
             <span>PHOTOGRAPHY</span>
         </div>
         <script>
-            // size the latest post thumbnail so it runs from the excerpt text's left edge to halfway
-            // across the decorative text, at 3:2. Lengthen the strip by the space it takes so the
-            // excerpts keep their room.
+            // size the latest post thumbnail at 3:2 so it runs from the excerpt text's left edge to just
+            // before the decorative text's letters, and push it down so its bottom lines up with the feature image.
+            // Lengthen the strip by the space it takes so the excerpts keep their room.
             (function () {
                 var thumbnail = document.querySelector('.latest-blogs .thumbnail');
                 var decoration = document.querySelector('.d3 span');
-                if (!thumbnail || !decoration || !window.ResizeObserver) return;
+                var feature = document.querySelector('.feature img');
+                if (!thumbnail || !decoration || !feature || !window.ResizeObserver) return;
                 var inner = thumbnail.parentElement;
-                var range = document.createRange();
-                range.selectNodeContents(decoration);
+                // zero-size marker on the decorative text's baseline; the text is rotated so the baseline
+                // is the visible left edge of the letters (PHOTOGRAPHY has no descenders)
+                var baseline = document.createElement('span');
+                baseline.setAttribute('aria-hidden', 'true');
+                baseline.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline';
+                decoration.style.whiteSpace = 'nowrap'; // keep the marker on the same line as the letters
+                decoration.appendChild(baseline);
+                var offset = 0;
 
                 function fit() {
-                    var text = range.getBoundingClientRect();
-                    var left = thumbnail.getBoundingClientRect().left;
-                    var width = Math.max(0, (text.left + text.right) / 2 - left);
+                    var box = thumbnail.getBoundingClientRect();
+                    // gap to the decorative text matches the gap between excerpts
+                    var gap = parseFloat(getComputedStyle(thumbnail).marginRight) || 0;
+                    var width = Math.max(0, baseline.getBoundingClientRect().left - gap - box.left);
                     var height = width * 2 / 3;
-                    var margin = parseFloat(getComputedStyle(thumbnail).marginRight) || 0;
-                    // .inner is rotated, so on-screen width is the element's height
+                    var naturalTop = box.top - offset;
+                    offset = Math.max(0, feature.getBoundingClientRect().bottom - height - naturalTop);
+                    // .inner is rotated, so on-screen width is the element's height and the
+                    // space above it is its left margin
                     thumbnail.style.height = width + 'px';
                     thumbnail.style.width = height + 'px';
-                    inner.style.setProperty('--thumbnail-space', (height + margin) + 'px');
+                    thumbnail.style.marginLeft = offset + 'px';
+                    inner.style.setProperty('--thumbnail-space', (offset + height + gap) + 'px');
                 }
 
                 new ResizeObserver(fit).observe(document.querySelector('.spread .page'));
