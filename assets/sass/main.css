@@ -127,7 +127,7 @@ p {
 }
 .latest-blogs .inner {
   transform-origin: top left;
-  transform: rotate(90deg);
+  transform: rotate(90deg) translateY(calc(8rem - 100%));
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -140,13 +140,30 @@ p {
 .latest-blogs .inner a p {
   font-size: 1.9vw;
 }
+.latest-blogs .inner a.thumbnail {
+  position: relative;
+  flex: none;
+  margin-bottom: 1.9vw;
+  width: 13vw;
+  height: 19.5vw;
+  container-type: size;
+}
+.latest-blogs .inner a.thumbnail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100cqh;
+  height: 100cqw;
+  object-fit: cover;
+  transform-origin: top left;
+  transform: translateY(100cqh) rotate(-90deg);
+}
 @media (max-width: 480px) {
   .latest-blogs {
     left: calc(33% + 10rem);
   }
   .latest-blogs .inner {
-    width: 350px;
-    height: 8rem;
+    width: calc(350px + var(--thumbnail-space, 0px));
   }
 }
 @media (min-width: 480px) {
@@ -154,8 +171,7 @@ p {
     left: calc(33% + 12rem);
   }
   .latest-blogs .inner {
-    width: 500px;
-    height: 8rem;
+    width: calc(500px + var(--thumbnail-space, 0px));
   }
 }
 @media (min-width: 768px) {
@@ -163,8 +179,7 @@ p {
     left: calc(33% + 12rem);
   }
   .latest-blogs .inner {
-    width: 800px;
-    height: 8rem;
+    width: calc(800px + var(--thumbnail-space, 0px));
   }
 }
 @media (min-width: 1280px) {
@@ -172,8 +187,7 @@ p {
     left: calc(33% + 14rem);
   }
   .latest-blogs .inner {
-    width: 1200px;
-    height: 8rem;
+    width: calc(1200px + var(--thumbnail-space, 0px));
   }
 }
 @media (min-width: 1440px) {
@@ -181,8 +195,7 @@ p {
     left: calc(33% + 14rem);
   }
   .latest-blogs .inner {
-    width: 1400px;
-    height: 8rem;
+    width: calc(1400px + var(--thumbnail-space, 0px));
   }
 }
 @media (min-width: 1920px) {
@@ -190,8 +203,7 @@ p {
     left: calc(33% + 14rem);
   }
   .latest-blogs .inner {
-    width: 1800px;
-    height: 8rem;
+    width: calc(1800px + var(--thumbnail-space, 0px));
   }
 }
 

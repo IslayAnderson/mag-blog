@@ -47,6 +47,34 @@ get_header(); ?>
         <div class="decoration_text d3 big_abstract">
             <span>PHOTOGRAPHY</span>
         </div>
+        <script>
+            // size the latest post thumbnail so it runs from the excerpt text's left edge to halfway
+            // across the decorative text, at 3:2. Lengthen the strip by the space it takes so the
+            // excerpts keep their room.
+            (function () {
+                var thumbnail = document.querySelector('.latest-blogs .thumbnail');
+                var decoration = document.querySelector('.d3 span');
+                if (!thumbnail || !decoration || !window.ResizeObserver) return;
+                var inner = thumbnail.parentElement;
+                var range = document.createRange();
+                range.selectNodeContents(decoration);
+
+                function fit() {
+                    var text = range.getBoundingClientRect();
+                    var left = thumbnail.getBoundingClientRect().left;
+                    var width = Math.max(0, (text.left + text.right) / 2 - left);
+                    var height = width * 2 / 3;
+                    var margin = parseFloat(getComputedStyle(thumbnail).marginRight) || 0;
+                    // .inner is rotated, so on-screen width is the element's height
+                    thumbnail.style.height = width + 'px';
+                    thumbnail.style.width = height + 'px';
+                    inner.style.setProperty('--thumbnail-space', (height + margin) + 'px');
+                }
+
+                new ResizeObserver(fit).observe(document.querySelector('.spread .page'));
+                if (document.fonts) document.fonts.ready.then(fit);
+            })();
+        </script>
     </div>
 </div>
 <?php get_footer(); ?>

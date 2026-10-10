@@ -23,7 +23,8 @@
 
   .inner {
     transform-origin: top left;
-    transform: rotate(90deg);
+    // height grows to fit the widest excerpt; shift so the text edge stays where 8rem put it
+    transform: rotate(90deg) translateY(calc(8rem - 100%));
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -37,54 +38,80 @@
         font-size: 1.9vw;
       }
     }
+
+    // latest post thumbnail: counter-rotated so it reads upright and cropped to 3:2. It starts
+    // at the excerpt text's left edge and runs halfway behind the decorative text; the size is
+    // set by template-homepage.php. .inner is rotated, so here height is the on-screen width
+    // and width the on-screen height.
+    a.thumbnail {
+      position: relative;
+      flex: none;
+      // same 1em as the excerpt paragraphs' margin so the left edges match the text
+      margin-bottom: 1.9vw;
+      // fallback size without the script
+      width: 13vw;
+      height: 19.5vw;
+      container-type: size;
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100cqh;
+        height: 100cqw;
+        object-fit: cover;
+        transform-origin: top left;
+        transform: translateY(100cqh) rotate(-90deg);
+      }
+    }
   }
 
 
   @media (max-width: $xs) {
     left: calc(33% + 10rem);
     .inner {
-      width: 350px;
-      height: 8rem;
+      // room for the excerpts plus the thumbnail, set by template-homepage.php
+      width: calc(350px + var(--thumbnail-space, 0px));
     }
   }
 
   @media (min-width: $xs) {
     left: calc(33% + 12rem);
     .inner {
-      width: 500px;
-      height: 8rem;
+      // room for the excerpts plus the thumbnail, set by template-homepage.php
+      width: calc(500px + var(--thumbnail-space, 0px));
     }
   }
 
   @media (min-width: $sm) {
     left: calc(33% + 12rem);
     .inner {
-      width: 800px;
-      height: 8rem;
+      // room for the excerpts plus the thumbnail, set by template-homepage.php
+      width: calc(800px + var(--thumbnail-space, 0px));
     }
   }
 
   @media (min-width: $md) {
     left: calc(33% + 14rem);
     .inner {
-      width: 1200px;
-      height: 8rem;
+      // room for the excerpts plus the thumbnail, set by template-homepage.php
+      width: calc(1200px + var(--thumbnail-space, 0px));
     }
   }
 
   @media (min-width: $lg) {
     left: calc(33% + 14rem);
     .inner {
-      width: 1400px;
-      height: 8rem;
+      // room for the excerpts plus the thumbnail, set by template-homepage.php
+      width: calc(1400px + var(--thumbnail-space, 0px));
     }
   }
 
   @media (min-width: $xl) {
     left: calc(33% + 14rem);
     .inner {
-      width: 1800px;
-      height: 8rem;
+      // room for the excerpts plus the thumbnail, set by template-homepage.php
+      width: calc(1800px + var(--thumbnail-space, 0px));
     }
   }
 }
