@@ -40,7 +40,7 @@ get_header(); ?>
             <span>PHP</span>
         </div>
         <div class="decoration_text d3 big_abstract">
-            <span>ART</span>
+            <span>PHOTOGRAPHY</span>
         </div>
     </div>
 </div>
