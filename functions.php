@@ -248,8 +248,8 @@ if (!in_array('advanced-custom-fields-pro/acf.php', get_option('active_plugins')
 }
 
 
-// instapress-social: GA secret settings page + endpoint
-require_once __DIR__ . '/includes/instapress-ga.php';
+// instopress-social: GA secret settings page + endpoint
+require_once __DIR__ . '/includes/instopress-ga.php';
 
 //disable block editor
 add_filter('use_block_editor_for_post', '__return_false');

@@ -1,10 +1,11 @@
 <?php
 /**
- * Hands the instapress-social plugin its Google Analytics Measurement Protocol
+ * Hands the instopress-social plugin its Google Analytics Measurement Protocol
  * API secret, so the secret isn't baked into the plugin's public code.
  *
- * Settings → instapress-social GA: enter the secret.
- * GET /wp-json/instapress/v1/ga-secret → { "measurement_id": "...", "api_secret": "..." }
+ * Settings → instopress-social GA: enter the secret.
+ * GET /wp-json/instopress/v1/ga-secret → { "measurement_id": "...", "api_secret": "..." }
+ * (also answered at the plugin's pre-rename address, /wp-json/instapress/v1/ga-secret, for older installs)
  *
  * Installs of the plugin fetch this when they send their setup event. It's
  * public by nature (any install has to be able to read it); changing it here
@@ -24,7 +25,7 @@ function mag_blog_iar_ga_settings()
 }
 
 add_action('admin_menu', function () {
-    add_options_page('instapress-social GA', 'instapress-social GA', 'manage_options', 'mag-blog-iar-ga', 'mag_blog_iar_ga_page');
+    add_options_page('instopress-social GA', 'instopress-social GA', 'manage_options', 'mag-blog-iar-ga', 'mag_blog_iar_ga_page');
 });
 
 add_action('admin_init', function () {
@@ -43,11 +44,11 @@ add_action('admin_init', function () {
 function mag_blog_iar_ga_page()
 {
     $s   = mag_blog_iar_ga_settings();
-    $url = rest_url('instapress/v1/ga-secret');
+    $url = rest_url('instopress/v1/ga-secret');
     ?>
     <div class="wrap">
-        <h1>instapress-social GA</h1>
-        <p>The Google Analytics details instapress-social installs use to send their <code>plugin_setup</code> event (Measurement Protocol).
+        <h1>instopress-social GA</h1>
+        <p>The Google Analytics details instopress-social installs use to send their <code>plugin_setup</code> event (Measurement Protocol).
             They read them from <a href="<?php echo esc_url($url); ?>"><code><?php echo esc_html($url); ?></code></a>.</p>
         <form method="post" action="options.php">
             <?php settings_fields('mag_blog_iar_ga'); ?>
@@ -72,7 +73,7 @@ function mag_blog_iar_ga_page()
 }
 
 add_action('rest_api_init', function () {
-    register_rest_route('instapress/v1', '/ga-secret', array(
+    $route = array(
         'methods'             => 'GET',
         'permission_callback' => '__return_true',
         'callback'            => function () {
@@ -87,5 +88,7 @@ add_action('rest_api_init', function () {
             $res->header('Cache-Control', 'public, max-age=300');
             return $res;
         },
-    ));
+    );
+    register_rest_route('instopress/v1', '/ga-secret', $route);
+    register_rest_route('instapress/v1', '/ga-secret', $route); // older installs, before the plugin was renamed
 });
